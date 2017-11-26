@@ -10,6 +10,7 @@ import WoundCalculation from "./models/wound-calculation.js";
 var root = document.body;
 
 let wc_model = new WoundCalculation();
+wc_model.calculateWounds();
 
 let _amount = new PropertyComponent('Amount', wc_model, 'amount');
 let _bs = new PropertyComponent('Balistic Skill', wc_model, 'bs');
@@ -48,29 +49,32 @@ let defenderDiv = m('div', defender);
 
 let woundsAmountTitle = "Amount of Wounds:";
 
-let testModel = {
-    view: () => {
-        return m('div', "jdlkjdlqwkjdlqwkdjqwldkjq");
-    }
-}
-
 let basicLayout = [
+    m('hr'),
     attackerTitle,
     attackerDiv,
     defenderTitle,
     defenderDiv,
-    woundsAmountTitle
+    woundsAmountTitle,
+    wc_model.view()
 ];
 
-let newButton = m('button', { onclick: ()=> {
-    let newBasicLayout = _.cloneDeep(basicLayout);
-    basicLayout.push(m('div', "NEW DIV PUSHED"));
-    m.mount(root, main);
-}}, "New Wound Calculation");
+let layout = [
+    basicLayout
+];
+
+let flag = true;
 
 var main = {
     view: () => {
-        return m("main",[newButton, m('hr'), basicLayout, wc_model.view()]);
+        return [
+            m('button', { onclick: ()=> {
+                layout.push(basicLayout);
+                flag = !flag;
+            }}, "New Wound Calculation ")
+          ].concat(
+            layout.map(datum => m('div', datum))
+          );
     }
 }
 

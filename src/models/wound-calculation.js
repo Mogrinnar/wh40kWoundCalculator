@@ -15,8 +15,7 @@ export default class WoundCalculation {
         this.invulSave = 0;
         this.woundpermodel = 1;
 
-        this.actualWoundsModelValue;
-        m.withAttr("actualWoundsModelValue", this.view.bind(this))
+        this.actualWoundsModelValue = 0;
     }
 
     calculateWounds()  {
@@ -48,6 +47,6 @@ export default class WoundCalculation {
     }
 
     view() {
-        return m("div", this.calculateWounds());
+        return m("div", this.actualWoundsModelValue);
     }
 }

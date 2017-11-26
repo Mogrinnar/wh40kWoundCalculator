@@ -25,7 +25,7 @@ export default class PropertyComponent {
     component() {
         return m("form", {id:"prop_comp"},  [
             m("div", {class: "title"}, this.title),
-            m("input.input[type=number]", {oninput: m.withAttr("value", this.setValue.bind(this)), value: this.value}),
+            m("input.input[type=number]", {oninput: m.withAttr("value", this.setValue.bind(this)), value: this.value})
         ])
     }
 }
