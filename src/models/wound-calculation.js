@@ -21,8 +21,7 @@ export default class WoundCalculationModel {
     calculateWounds()  {
         let probToHit = this.probToHit();
         let probToWOund = this.probToWOund();
-        let armorFactor = this.armorFactor();
-        let probToFailSave = (armorFactor - 1) / 6;
+        let probToFailSave = this.probToFailSave();
         let actualDamage = this.actualDamage();
         this.actualWoundsModelValue = this.amount * probToHit * probToWOund * probToFailSave * actualDamage;
         return this.actualWoundsModelValue;
@@ -30,6 +29,13 @@ export default class WoundCalculationModel {
 
     probToHit() {
         return (7 - this.bs) / 6;
+    }
+
+    probToFailSave() {
+        let armorFactor = this.armourSave + this.ap;
+        if (this.invulSave > armorFactor) 
+            armorFactor = this.invulSave;
+        return (armorFactor - 1) / 6;
     }
 
     probToWOund() {
@@ -47,14 +53,6 @@ export default class WoundCalculationModel {
         }
 
         return probToWOund;
-    }
-
-    armorFactor() {
-        let armorFactor = this.armourSave + this.ap;
-        if (this.invulSave > armorFactor) 
-            armorFactor = this.invulSave;
-
-        return armorFactor;
     }
 
     actualDamage() {

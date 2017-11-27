@@ -7,15 +7,15 @@ import PropertyComponent from "./property-component.js";
 export default class WoundCalculationView {
     constructor () {
         this.wc_model = new WoundCalculationModel();
-        this.amount = new PropertyComponent('Amount', this.wc_model, 'amount');
-        this.bs = new PropertyComponent('Balistic Skill', this.wc_model, 'bs');
-        this.strength = new PropertyComponent('Strength', this.wc_model, 'strength');
-        this.ap = new PropertyComponent('AP', this.wc_model, 'ap');
-        this.damage = new PropertyComponent('Damage', this.wc_model, 'damage');
-        this.toughness = new PropertyComponent('Thoughness', this.wc_model, 'toughness');
-        this.armourSave = new PropertyComponent('Armor Save', this.wc_model, 'armourSave');
-        this.invulSave = new PropertyComponent('Invulnerable Save', this.wc_model, 'invulSave');
-        this.wounds = new PropertyComponent('Wounds Amount Per Model', this.wc_model, 'woundpermodel');
+        this.amount = new PropertyComponent('Amount', this.wc_model, 'amount', 1, 99);
+        this.bs = new PropertyComponent('Balistic Skill', this.wc_model, 'bs', 1, 6);
+        this.strength = new PropertyComponent('Strength', this.wc_model, 'strength', 1, 6);
+        this.ap = new PropertyComponent('AP', this.wc_model, 'ap', -6, 0);
+        this.damage = new PropertyComponent('Damage', this.wc_model, 'damage', 1, 10);
+        this.toughness = new PropertyComponent('Thoughness', this.wc_model, 'toughness', 1, 10);
+        this.armourSave = new PropertyComponent('Armor Save', this.wc_model, 'armourSave', 2, 7);
+        this.invulSave = new PropertyComponent('Invulnerable Save', this.wc_model, 'invulSave', 2, 6);
+        this.wounds = new PropertyComponent('Wounds Amount Per Model', this.wc_model, 'woundpermodel', 1, 50);
 
         this.attackersComponents = [
             this.amount,
