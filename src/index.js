@@ -17,7 +17,8 @@ let layout = [
 let testFunc = function() {
     return [
         m('button', { onclick: ()=> {
-            layout.push(new WoundCalculationView());
+            let newView = new WoundCalculationView();
+            layout = _.concat([newView], layout);
         }}, "New Wound Calculation ")
     ].concat(
         layout.map(maindata => {
