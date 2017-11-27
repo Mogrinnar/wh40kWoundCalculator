@@ -3,7 +3,7 @@
 const m = require("mithril")
 const _ = require("lodash");
 
-export default class WoundCalculation {
+export default class WoundCalculationModel {
     constructor () {
         this.amount = 1;
         this.bs = 3;
