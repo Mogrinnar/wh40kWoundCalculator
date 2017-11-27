@@ -19,31 +19,46 @@ export default class WoundCalculationModel {
     }
 
     calculateWounds()  {
-        let probToHit = (7 - this.bs) / 6;
+        let probToHit = this.probToHit();
+        let probToWOund = this.probToWOund();
+        let armorFactor = this.armorFactor();
+        let probToFailSave = (armorFactor - 1) / 6;
+        let actualDamage = this.actualDamage();
+        this.actualWoundsModelValue = this.amount * probToHit * probToWOund * probToFailSave * actualDamage;
+        return this.actualWoundsModelValue;
+    }
 
+    probToHit() {
+        return (7 - this.bs) / 6;
+    }
+
+    probToWOund() {
         let probToWOund = 0;
         if(this.strength === this.toughness) {
-            probToWOund = 0.5;
+            probToWOund = 1/2; // 4+ roll
         } else if (this.strength >= (this.toughness * 2)) {
-            probToWOund = 0.83333333333;
+            probToWOund = 5/6; // 2+ roll
         } else if ((this.strength *2) <= (this.toughness)) {
-            probToWOund = 0.16666666666;
+            probToWOund = 1/6; // 6+ roll
         } else if (this.strength > this.toughness) {
-            probToWOund = 0.66666666666;
+            probToWOund = 2/3; // 3+ roll
         } else if (this.strength <this.toughness) {
-            probToWOund = 0.33333333333;
+            probToWOund = 1/3; // 5+ roll
         }
 
+        return probToWOund;
+    }
+
+    armorFactor() {
         let armorFactor = this.armourSave + this.ap;
-        if (this.invulSave > armorFactor) {
+        if (this.invulSave > armorFactor) 
             armorFactor = this.invulSave;
-        }
 
-        let probToSave = (armorFactor - 1) / 6;
+        return armorFactor;
+    }
 
-        //assuming one multi-wound model
-        this.actualWoundsModelValue = this.amount * probToHit * probToWOund * probToSave * this.damage;
-        return this.actualWoundsModelValue;
+    actualDamage() {
+        return _.clamp(this.damage, 0, this.woundpermodel);
     }
 
     view() {
