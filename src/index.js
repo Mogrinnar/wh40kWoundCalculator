@@ -56,25 +56,36 @@ let basicLayout = [
     defenderTitle,
     defenderDiv,
     woundsAmountTitle,
-    wc_model.view()
+    m('div',wc_model)
 ];
 
 let layout = [
     basicLayout
 ];
 
-let flag = true;
+let testFunc = function() {
+    return [
+        m('button', { onclick: ()=> {
+            layout.push(basicLayout);
+        }}, "New Wound Calculation ")
+    ].concat(
+        layout.map(maindata => {
+
+            maindata = maindata.map(div => {
+                if(div.attrs && div.attrs.view)
+                    return div.attrs.view();
+
+                return div;
+            });
+
+            return m('div', maindata);
+        })
+    );
+}
 
 var main = {
     view: () => {
-        return [
-            m('button', { onclick: ()=> {
-                layout.push(basicLayout);
-                flag = !flag;
-            }}, "New Wound Calculation ")
-          ].concat(
-            layout.map(datum => m('div', datum))
-          );
+        return testFunc();
     }
 }
 

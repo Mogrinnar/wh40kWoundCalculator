@@ -47,6 +47,6 @@ export default class WoundCalculation {
     }
 
     view() {
-        return m("div", this.actualWoundsModelValue);
+        return m("div", this.calculateWounds());
     }
 }
